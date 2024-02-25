@@ -106,6 +106,20 @@ services:
       - elasticsearch
     restart: unless-stopped
 
+  backend:
+    build:
+      context: ./backend
+      dockerfile: ./docker/Dockerfile
+    ports:
+      - 8000:8000
+    environment:
+      - FASTAPI_ENV=production
+    networks:
+      - elk
+    depends_on:
+      - elasticsearch
+    restart: unless-stopped  
+
 networks:
   elk:
     driver: bridge
