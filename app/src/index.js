@@ -6,7 +6,19 @@ const app = express();
 
 app.get('/', (_, res) => {
     res.status(200).json({
-        type: 'test'
+        message: 'Hello World'
+    })
+})
+
+app.get('/error', (_, res) => {
+    res.status(400).json({
+        error: 'Bad Request'
+    })
+})
+
+app.get('/error/server', (_, res) => {
+    res.status(500).json({
+        error: 'Internal Server Error'
     })
 })
 
