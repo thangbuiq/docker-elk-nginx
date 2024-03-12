@@ -104,6 +104,22 @@ services:
     links: 
       - logstash
 
+  metricbeat:
+    build: ./metricbeat
+    entrypoint: "metricbeat -e -strict.perms=false"
+    volumes:
+      - ./metricbeat/config/metricbeat.yml:/usr/share/metricbeat/metricbeat.yml
+    networks:
+      - elk
+    depends_on: 
+      - app
+      - nginx
+      - logstash
+      - elasticsearch
+      - kibana
+    links: 
+      - logstash
+
 networks:
   elk:
     driver: bridge
