@@ -2,7 +2,9 @@ filebeat.inputs:
 - type: log
   enabled: true
   paths:
-    - /var/log/nginx/*.log
+    - /var/log/nginx/access.log
+  fields:
+    document_type: nginx_access_log
 
 output.logstash:
   enabled: true

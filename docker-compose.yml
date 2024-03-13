@@ -11,6 +11,7 @@ services:
         source: ./elasticsearch/config/elasticsearch.yml
         target: /usr/share/elasticsearch/config/elasticsearch.yml
         read_only: true
+      - ./elasticsearch/index-template.json:/etc/filebeat/index-template.json
     #   - elasticsearch:/usr/share/elasticsearch/data:rw
     ports:
       - "9200:9200"
@@ -93,22 +94,6 @@ services:
     volumes:
       - ./filebeat/config/filebeat.yml:/usr/share/filebeat/filebeat.yml
       - ./nginx/log:/var/log/nginx
-    networks:
-      - elk
-    depends_on: 
-      - app
-      - nginx
-      - logstash
-      - elasticsearch
-      - kibana
-    links: 
-      - logstash
-
-  metricbeat:
-    build: ./metricbeat
-    entrypoint: "metricbeat -e -strict.perms=false"
-    volumes:
-      - ./metricbeat/config/metricbeat.yml:/usr/share/metricbeat/metricbeat.yml
     networks:
       - elk
     depends_on: 
